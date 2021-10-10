@@ -46,6 +46,9 @@ class DetailArtistScreen extends GetView<DetailArtistController> {
                     imageUrl: convertImageUrl(track.album?.images),
                   ),
                   title: Text(track.name!),
+                  onTap: () {
+                    controller.selectTrack(track);
+                  },
                 );
               },
             )),

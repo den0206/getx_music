@@ -8,7 +8,12 @@
     <true/>
     <key>NSAllowsArbitraryLoadsInWebContent</key>
     <true/>
+	<key>NSAllowsArbitraryLoadsForMedia</key>
+	<true/>
     </dict>
+
+	<key>NSMicrophoneUsageDescription</key>
+    <string>... explain why the app uses the microphone here ...</string>
 	
 	<key>UIBackgroundModes</key>
     <array>

@@ -3,7 +3,6 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:get/get.dart';
 
 import 'package:getx_music/screen/main_tab/main_tab_screen.dart';
-import 'package:getx_music/service/my_audio_handler.dart';
 import 'package:getx_music/src/API/spotify_api.dart';
 import 'package:sizer/sizer.dart';
 
@@ -43,7 +42,7 @@ class InitialBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(SpotifyService());
-    Get.put(MyAudionHandler());
+    // Get.put(MiniPlayerController());
   }
 }
 

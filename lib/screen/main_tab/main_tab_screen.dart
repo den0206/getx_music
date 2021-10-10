@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_music/screen/main_tab/main_tab_controller.dart';
-import 'package:getx_music/screen/widget/mini_player.dart';
+import 'package:getx_music/screen/mini_player/mini_player.dart';
 
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
