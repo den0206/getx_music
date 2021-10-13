@@ -121,6 +121,10 @@ class ChartPage extends GetView<TopChartsController> {
                     '${item['artist']}',
                     overflow: TextOverflow.ellipsis,
                   ),
+                  onTap: () {
+                    final id = item["id"];
+                    controller.selectTrack(id);
+                  },
                 );
               },
             ),

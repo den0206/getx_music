@@ -111,10 +111,25 @@ class MiniPlayerController extends GetxController {
       artist: track.artists?.first.name ?? null,
       artUri: artUri,
       duration: track.duration ?? null,
-      extras: {"url": track.previewUrl},
+      extras: {"url": track.previewUrl ?? null},
     );
 
-    print(mediaItem);
+    if (track.previewUrl == null) {
+      Get.defaultDialog(
+        title: "GeeksforGeeks",
+        middleText: "Hello world!",
+        backgroundColor: Colors.green,
+        titleStyle: TextStyle(color: Colors.white),
+        middleTextStyle: TextStyle(color: Colors.white),
+        textConfirm: "Confirm",
+        textCancel: "Cancel",
+        cancelTextColor: Colors.white,
+        confirmTextColor: Colors.white,
+        buttonColor: Colors.red,
+        barrierDismissible: false,
+        radius: 50,
+      );
+    }
     await audioHandler.setTrack(mediaItem);
   }
 

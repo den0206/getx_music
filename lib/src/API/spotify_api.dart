@@ -76,6 +76,11 @@ class SpotifyService extends GetxService {
     return res;
   }
 
+  Future<Track> getTrack(String id) async {
+    var track = await api.tracks.get(id);
+    return track;
+  }
+
   Future<List<Track>> getTopTracks(String id) async {
     final List<Track> tracks = [];
 

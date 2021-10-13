@@ -1,3 +1,4 @@
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:getx_music/screen/mini_player/mini_player_controller.dart';
@@ -9,7 +10,6 @@ class MiniPlayer extends GetView<MiniPlayerController> {
   Widget build(BuildContext context) {
     return Container(
       child: GetX<MiniPlayerController>(
-        init: MiniPlayerController(),
         builder: (_) {
           return Column(
             mainAxisSize: MainAxisSize.min,
@@ -17,7 +17,21 @@ class MiniPlayer extends GetView<MiniPlayerController> {
               Divider(
                 height: 1,
               ),
-              PlayerSlider(),
+              // PlayerSlider(),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: ProgressBar(
+                  progress: controller.currentPosition.value,
+                  total:
+                      controller.currentMediaItem.value?.extras?['url'] != null
+                          ? Duration(seconds: 30)
+                          : Duration.zero,
+                  onSeek: (value) {
+                    controller.seek(value);
+                  },
+                ),
+              ),
               ListTile(
                 title: Text(
                   controller.currentMediaItem.value != null

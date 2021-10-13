@@ -1,4 +1,5 @@
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:getx_music/screen/mini_player/mini_player_controller.dart';
 import 'package:getx_music/src/API/spotify_api.dart';
 
 enum RegionType { global, japan }
@@ -29,6 +30,9 @@ class TopChartsController extends GetxController {
   final List localItem = [];
   final List globalItem = [];
 
+  final SpotifyService _spotify = SpotifyService();
+  final MiniPlayerController _audioHandler = MiniPlayerController.to;
+
   List get currentList {
     switch (currentRegion) {
       case RegionType.global:
@@ -37,9 +41,6 @@ class TopChartsController extends GetxController {
         return localItem;
     }
   }
-
-  TopChartsController();
-  final SpotifyService _spotify = SpotifyService();
 
   @override
   void onInit() async {
@@ -80,5 +81,10 @@ class TopChartsController extends GetxController {
     }
 
     update();
+  }
+
+  Future<void> selectTrack(String id) async {
+    final track = await _spotify.getTrack(id);
+    _audioHandler.addPlayList(track);
   }
 }
