@@ -5,12 +5,16 @@ import 'package:get/get.dart';
 import 'package:getx_music/screen/main_tab/main_tab_screen.dart';
 import 'package:getx_music/screen/mini_player/mini_player_controller.dart';
 import 'package:getx_music/src/API/spotify_api.dart';
+import 'package:hive/hive.dart';
+import "package:hive_flutter/hive_flutter.dart";
 import 'package:sizer/sizer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
 
   await FlutterConfig.loadEnvVariables();
+  await Hive.initFlutter();
+  await Hive.openBox(HiveConst.setting);
 
   runApp(const MyApp());
 }
@@ -63,4 +67,9 @@ ThemeData initialTheme({required BuildContext context}) {
           displayColor: Colors.white,
         ),
   );
+}
+
+class HiveConst {
+  static final setting = "settings";
+  static final String predicts = "predicts";
 }

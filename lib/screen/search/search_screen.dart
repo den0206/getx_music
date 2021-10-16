@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:getx_music/main.dart';
 import 'package:getx_music/screen/detail_artist/detail_artist_controller.dart';
@@ -82,43 +83,52 @@ class SearchScreen extends GetView<SearchController> {
                     if (isFocused) controller.clearList();
                   },
                   builder: (context, transition) {
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: ["history"]
-                            .map((e) => ListTile(
-                                // dense: true,
-                                horizontalTitleGap: 0.0,
-                                title: Text(e.toString()),
-                                leading: const Icon(
-                                  Icons.search,
-                                  color: Colors.white,
-                                ),
-                                trailing: IconButton(
-                                    icon: const Icon(
-                                      Icons.clear,
-                                      color: Colors.white,
-                                      size: 15.0,
-                                    ),
-                                    tooltip: 'Remove',
-                                    onPressed: () {}),
-                                onTap: () {}))
-                            .toList(),
-                      ),
+                    return ListView.separated(
+                      separatorBuilder: (context, index) => Divider(),
+                      shrinkWrap: true,
+                      itemCount: controller.predicts.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final current = controller.predicts[index];
+
+                        return Slidable(
+                          key: Key(current),
+                          actionPane: SlidableDrawerActionPane(),
+                          actionExtentRatio: 0.25,
+                          secondaryActions: [
+                            IconSlideAction(
+                              caption: 'Delete',
+                              color: Colors.red,
+                              icon: Icons.close,
+                              onTap: () {
+                                controller.deletePredict(index);
+                              },
+                            ),
+                          ],
+                          child: ListTile(
+                            title: Text(current),
+                            onTap: () {
+                              controller.addRes(current);
+                            },
+                          ),
+                        );
+                      },
                     );
                   },
-                  body: ListView.separated(
-                    padding:
-                        EdgeInsets.fromLTRB(10, searchBarHeight + 20, 10, 0),
-                    separatorBuilder: (context, index) => Divider(),
-                    itemCount: controller.res.length,
-                    itemBuilder: (context, index) {
-                      final current = controller.res[index];
+                  body: controller.controller.isClosed && controller.res.isEmpty
+                      ? Center(
+                          child: Text("No Result"),
+                        )
+                      : ListView.separated(
+                          padding: EdgeInsets.fromLTRB(
+                              10, searchBarHeight + 20, 10, 0),
+                          separatorBuilder: (context, index) => Divider(),
+                          itemCount: controller.res.length,
+                          itemBuilder: (context, index) {
+                            final current = controller.res[index];
 
-                      return ArtistTile(current: current);
-                    },
-                  ),
+                            return ArtistTile(current: current);
+                          },
+                        ),
                 ),
               ));
         },
